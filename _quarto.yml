@@ -8,7 +8,7 @@ book:
   title: "আমার বই"
   author: "মাহমুদুল হাসান"
   date: today
-  # cover-image: images/cover.png   # আসল কভার আর্ট images/cover.png-এ রাখলে এই লাইনের কমেন্ট তুলে দিন
+  cover-image: images/cover.png
   chapters:
     - index.qmd
     - chapters/01-introduction.qmd
@@ -66,6 +66,19 @@ format:
     include-in-header:
       text: |
         \addtokomafont{disposition}{\mdseries}
+        % Full-page cover image, printed as the very first page before
+        % the title page. cover-image (images/cover.png) only feeds EPUB
+        % output by default, so it's rendered here explicitly for PDF too.
+        \AtBeginDocument{%
+          \begin{titlepage}
+            \newgeometry{margin=0in}
+            \centering
+            \vspace*{\fill}
+            \includegraphics[width=\paperwidth,height=\paperheight,keepaspectratio]{images/cover.png}
+            \vspace*{\fill}
+          \end{titlepage}
+          \restoregeometry
+        }
 
   html:
     theme:
