@@ -1,0 +1,86 @@
+project:
+  type: book
+  output-dir: output
+  pre-render: scripts/build-frontmatter.sh
+  post-render: scripts/move-figure-files.sh
+
+book:
+  title: "আমার বই"
+  author: "মাহমুদুল হাসান"
+  date: today
+  # cover-image: images/cover.png   # আসল কভার আর্ট images/cover.png-এ রাখলে এই লাইনের কমেন্ট তুলে দিন
+  chapters:
+    - index.qmd
+    - chapters/01-introduction.qmd
+    - chapters/02-chapter-one.qmd
+    - chapters/03-chapter-two.qmd
+    - chapters/04-conclusion.qmd
+
+format:
+  pdf:
+    pdf-engine: lualatex
+    documentclass: scrbook
+    toc: true
+    number-sections: true
+
+    # --- multi-script fonts: Bangla is the primary script, with Latin
+    # fallback fonts (bundled with TinyTeX, so builds stay portable) for
+    # English words/quotes/code mixed into the text. ---
+    mainfont: "Noto Serif Bengali"
+    mainfontoptions:
+      - Renderer=HarfBuzz
+      - Script=Bengali
+    mainfontfallback:
+      - "TeX Gyre Termes"
+    sansfont: "Noto Sans Bengali"
+    sansfontoptions:
+      - Renderer=HarfBuzz
+      - Script=Bengali
+    sansfontfallback:
+      - "TeX Gyre Heros"
+    monofont: "TeX Gyre Cursor"
+    monofontfallback:
+      - "Noto Sans Bengali"
+
+    # --- KDP-ready trim size (6in x 9in, a common KDP paperback trim).
+    # `inner` is the gutter (binding-side) margin; KDP's minimum grows
+    # with page count (0.375in up to 150pp, 0.75in up to 300pp, 0.875in
+    # up to 500pp, 1in up to 700pp) — bump `inner` as the manuscript
+    # grows past those thresholds. ---
+    geometry:
+      - paperwidth=6in
+      - paperheight=9in
+      - twoside
+      - inner=0.875in
+      - outer=0.5in
+      - top=0.75in
+      - bottom=0.75in
+    classoption:
+      - twoside
+      - openright
+
+    # pretoc front matter (dedication, epigraph, ...), authored as markdown
+    # in frontmatter/*.qmd and compiled by scripts/build-frontmatter.sh
+    include-before-body: frontmatter/_frontmatter.tex
+
+    include-in-header:
+      text: |
+        \addtokomafont{disposition}{\mdseries}
+
+  html:
+    theme:
+      light: flatly
+      dark: darkly
+    mainfont: "'Noto Serif Bengali', 'Noto Serif', Georgia, serif"
+    monofont: "'JetBrains Mono', 'Noto Sans Mono', monospace"
+    fontsize: 1.05em
+    linestretch: 1.7
+    toc: true
+    number-sections: true
+    code-copy: true
+    css: styles.css
+    include-in-header:
+      text: |
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Bengali:wght@400;600;700&family=Noto+Sans+Bengali:wght@400;600;700&display=swap" rel="stylesheet">

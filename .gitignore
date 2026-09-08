@@ -1,0 +1,9 @@
+.quarto/
+output/
+*.pdf
+.DS_Store
+
+/.quarto/
+**/*.quarto_ipynb
+frontmatter/_frontmatter.tex
+*_files/

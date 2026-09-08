@@ -1,0 +1,46 @@
+project:
+  type: book
+  output-dir: ../output
+
+# Marketing sample: pick any chapters here (not just a page range) —
+# add/remove entries from `book.chapters` below to change what's included.
+# Build with: quarto render sample --to pdf
+book:
+  title: "আমার বই — নমুনা"
+  author: "মাহমুদুল হাসান"
+  output-file: "আমার-বই-sample"
+  chapters:
+    - index.qmd
+    - ../chapters/01-introduction.qmd
+    - ../chapters/02-chapter-one.qmd
+    - sample-notice.qmd
+
+format:
+  pdf:
+    pdf-engine: lualatex
+    documentclass: scrbook
+    toc: true
+    mainfont: "Noto Serif Bengali"
+    mainfontoptions:
+      - Renderer=HarfBuzz
+      - Script=Bengali
+    mainfontfallback:
+      - "TeX Gyre Termes"
+    sansfont: "Noto Sans Bengali"
+    sansfontoptions:
+      - Renderer=HarfBuzz
+      - Script=Bengali
+    sansfontfallback:
+      - "TeX Gyre Heros"
+    monofont: "TeX Gyre Cursor"
+    geometry:
+      - paperwidth=6in
+      - paperheight=9in
+      - twoside
+      - inner=0.875in
+      - outer=0.5in
+      - top=0.75in
+      - bottom=0.75in
+    classoption:
+      - twoside
+      - openright
